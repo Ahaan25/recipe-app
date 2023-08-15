@@ -4,7 +4,9 @@ const http = require("http")
 const mongoose = require('mongoose')
 const bodyparser = require("body-parser")
 const content = require("./controllers/content")
-const config = require("./config")
+if (!process.env.MONGO_URL) {
+  const config = require("./config")
+}
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -16,9 +18,10 @@ const corsOptions = {
 
 }
 
-const mongoUrl = process.env.MONGO_URL || config.mongourl ;
+const mongoUrl = process.env.MONGO_URL || config.mongourl;
 
-mongoose.connect(mongoUrl,{useNewUrlParser:true
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true
 })
 
 app.use(cors(corsOptions))
