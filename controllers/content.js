@@ -1,8 +1,31 @@
 const contentModel = require("./contentModel")
 exports.findRecipe = async (req, res) => {
-    const name = req.query.title
-    console.log(name)
-    var recipe = await contentModel.findOne({ title: name.toString()}).exec()
+    const recipename = req.query.title
+    var recipe = await contentModel.findOne({ title: recipename.toString()}).exec()
+    if (recipe) {
+        console.log(recipe)
+        res.status(200).send(recipe)
+    }
+    else{
+        console.log("not found")
+    }
+}
+
+exports.findCuisine = async (req, res) => {
+    const cuisinename = req.query.cuisine
+    var recipe = await contentModel.find({ cuisine: cuisinename.toString()}).exec()
+    if (recipe) {
+        console.log(recipe)
+        res.status(200).send(recipe)
+    }
+    else{
+        console.log("not found")
+    }
+}
+
+exports.findCourse = async (req, res) => {
+    const coursename = req.query.course
+    var recipe = await contentModel.find({ course: coursename.toString()}).exec()
     if (recipe) {
         console.log(recipe)
         res.status(200).send(recipe)
